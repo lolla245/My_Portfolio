@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tapaswee Lolla</title>
+<title>Tapaswee Lolla - AI/ML Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -42,28 +42,105 @@ body {
   font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
+  zoom: 0.95;
+}
+
+/* SPLASH SCREEN */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s ease-out;
+  pointer-events: auto;
+}
+
+.splash-screen.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.splash-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.splash-logo .first {
+  display: block;
+  color: var(--text);
+}
+
+.splash-logo .last {
+  display: block;
+  color: var(--accent);
+  font-style: italic;
+}
+
+.splash-tagline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+
+.splash-loader {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.loader-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: splashPulse 1.4s infinite;
+}
+
+.loader-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes splashPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
 }
 
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 64px;
-  background: rgba(248,245,242,0.9);
+  background: rgba(248,245,242,0.95);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
-.nav-logo {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.1rem; color: var(--text); letter-spacing: 0.01em;
+
+.nav-left { 
+  display: flex; 
+  align-items: center; 
+  gap: 60px;
 }
-.nav-logo span { color: var(--accent); font-style: italic; }
-.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-.nav-links a {
-  color: var(--text); text-decoration: none;
-  font-size: 0.78rem; letter-spacing: 0.06em;
-  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--accent); }
 
 .nav-availability {
   display: inline-flex; align-items: center; gap: 8px;
@@ -72,6 +149,7 @@ nav {
   color: #b07070; text-decoration: none;
   font-size: 0.72rem; letter-spacing: 0.06em;
   font-weight: 400; text-transform: uppercase; transition: all 0.2s;
+  white-space: nowrap;
 }
 .nav-availability::before {
   content: ''; width: 6px; height: 6px;
@@ -80,6 +158,33 @@ nav {
 .nav-availability:hover {
   background: rgba(232, 180, 180, 0.05);
   border-color: #b07070;
+}
+
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem; color: var(--text); letter-spacing: 0.01em;
+  cursor: pointer; white-space: nowrap;
+}
+.nav-logo span { color: var(--accent); font-style: italic; }
+
+.nav-links { 
+  display: flex; 
+  gap: 40px; 
+  list-style: none; 
+  align-items: center;
+}
+.nav-links a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.78rem; letter-spacing: 0.06em;
+  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
+  cursor: pointer; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--accent); }
+
+.nav-right { 
+  display: flex; 
+  align-items: center; 
+  gap: 30px;
 }
 
 .hero {
@@ -145,14 +250,14 @@ nav {
   line-height: 1.9; margin-bottom: 48px;
   margin-left: auto; margin-right: auto;
 }
-.hero-actions { display: flex; gap: 14px; justify-content: center; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--text); color: var(--bg);
   padding: 13px 28px; border-radius: 100px;
   font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
-  text-decoration: none; transition: all 0.25s;
+  text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
 }
 .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
 .btn-outline {
@@ -160,7 +265,7 @@ nav {
   border: 1px solid var(--border); color: var(--text);
   padding: 13px 28px; border-radius: 100px;
   font-size: 0.78rem; font-weight: 400; letter-spacing: 0.04em;
-  text-decoration: none; transition: all 0.25s;
+  text-decoration: none; transition: all 0.25s; cursor: pointer; background: transparent;
 }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
@@ -180,10 +285,11 @@ section { padding: 100px 64px; position: relative; }
 .section-title em { font-style: italic; color: var(--accent); }
 .divider { height: 1px; background: var(--border); margin: 0 64px; }
 
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+/* SKILLS SECTION WITH TOOLS */
+.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .skill-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 16px; padding: 28px; transition: all 0.3s;
+  border-radius: 16px; padding: 28px; transition: all 0.3s; cursor: pointer;
 }
 .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.05); border-color: var(--accent-light); }
 .skill-dot {
@@ -193,468 +299,569 @@ section { padding: 100px 64px; position: relative; }
 }
 .dot-lavender { background: var(--lavender); }
 .dot-sage { background: var(--sage); }
-.dot-cornflower { background: var(--cornflower); }
 .dot-rose { background: var(--dusty-rose); }
-.dot-mint { background: var(--mint); }
+.dot-corn { background: var(--cornflower); }
 .dot-butter { background: var(--buttermilk); }
-
-.skill-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
-.skill-desc { font-size: 0.73rem; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
-.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-  font-size: 0.62rem; padding: 4px 10px; border-radius: 100px;
-  background: var(--bg); border: 1px solid var(--border);
-  color: var(--muted); letter-spacing: 0.03em;
+.dot-mint { background: var(--mint); }
+.dot-cream { background: #ede8e0; }
+.skill-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem; font-weight: 400; margin-bottom: 8px; color: var(--text);
+}
+.skill-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+.skill-tools {
+  display: flex; flex-wrap: wrap; gap: 6px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.tool-badge {
+  display: inline-block; background: var(--surface2);
+  padding: 5px 10px; border-radius: 6px;
+  font-size: 0.7rem; font-weight: 500; color: var(--text);
+  letter-spacing: 0.02em; white-space: nowrap;
 }
 
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+/* PROJECTS SECTION */
+.projects-section { background: linear-gradient(135deg, rgba(212,204,232,0.1) 0%, rgba(200,217,200,0.1) 100%); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
 .project-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 20px; overflow: hidden; transition: all 0.3s; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; transition: all 0.3s; cursor: pointer;
 }
-.project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.07); }
-.project-card:hover .project-arrow { opacity: 1; transform: translate(0,0); }
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(0,0,0,0.08); border-color: var(--accent-light); }
 
-.project-color-bar { height: 4px; }
-.bar-nlp { background: linear-gradient(90deg, var(--cornflower), var(--cornflower-d)); }
-.bar-cv  { background: linear-gradient(90deg, var(--sage), var(--sage-d)); }
-.bar-ml  { background: linear-gradient(90deg, var(--lavender), var(--lavender-d)); }
-
-.project-inner { padding: 28px; }
-.project-type {
-  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 10px;
+.project-top {
+  height: 120px; background: linear-gradient(135deg, rgba(123,110,168,0.1), rgba(200,212,232,0.1));
+  display: flex; align-items: center; justify-content: center; font-size: 2.4rem;
 }
+.project-body { padding: 24px; }
+.project-type { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-d); margin-bottom: 8px; }
 .project-title {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.25rem; font-weight: 400; margin-bottom: 12px; line-height: 1.3;
+  font-size: 1.2rem; font-weight: 400; margin-bottom: 10px; color: var(--text);
 }
-.project-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.8; margin-bottom: 22px; }
-.project-metrics {
-  display: flex; gap: 20px;
-  padding: 16px 0; border-top: 1px solid var(--border); margin-bottom: 20px;
+.project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  display: inline-block; background: var(--surface2);
+  padding: 4px 10px; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 500; color: var(--text);
+  letter-spacing: 0.02em;
 }
-.metric-val { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); }
-.metric-label { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
-.project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-.project-cta {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.75rem; font-weight: 500; color: var(--accent);
-  padding: 10px 0; border-top: 1px solid var(--border);
+
+.project-footer {
+  border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px;
+  display: flex; gap: 8px; flex-wrap: wrap;
 }
-.project-arrow {
-  width: 20px; height: 20px; border-radius: 50%;
+.project-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  background: var(--surface2); color: var(--text);
+  font-size: 0.75rem; font-weight: 500; text-decoration: none;
+  transition: all 0.2s; border: none; cursor: pointer;
+}
+.project-link:hover { background: var(--accent); color: var(--bg); }
+.project-link.primary {
   background: var(--accent); color: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.6rem; opacity: 0;
-  transform: translate(-6px,0); transition: all 0.3s;
+}
+.project-link.primary:hover {
+  background: var(--lavender-d); color: var(--bg);
 }
 
-.timeline { padding-left: 32px; position: relative; }
-.timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
-.timeline-item { position: relative; margin-bottom: 44px; }
-.timeline-item::before {
-  content: ''; position: absolute; left: -28px; top: 6px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent-light); border: 2px solid var(--accent);
+/* EXPERIENCE & EDUCATION SECTION */
+.timeline-section { background: var(--surface); }
+.timeline-container { max-width: 800px; margin: 0 auto; }
+.timeline-item {
+  position: relative; padding-left: 40px; padding-bottom: 48px;
+  border-left: 2px solid var(--border);
 }
-.timeline-date { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
-.timeline-title { font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
-.timeline-org { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
-.timeline-desc { font-size: 0.73rem; color: var(--muted); line-height: 1.8; }
-
-.contact-wrapper {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 24px; padding: 72px; text-align: center; position: relative; overflow: hidden;
+.timeline-item:last-child { padding-bottom: 0; border-left: 2px solid transparent; }
+.timeline-dot {
+  position: absolute; left: -10px; top: 0;
+  width: 18px; height: 18px; background: var(--accent);
+  border: 3px solid var(--bg); border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--accent-light);
 }
-.contact-wrapper::before {
-  content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(212,204,232,0.2), transparent 70%);
-  pointer-events: none;
+.timeline-date {
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--sage-d); margin-bottom: 8px; font-weight: 500;
 }
-.contact-title {
+.timeline-title {
   font-family: 'DM Serif Display', serif;
-  font-size: 2.5rem; font-weight: 400; margin-bottom: 14px; position: relative;
+  font-size: 1.2rem; font-weight: 400; color: var(--text); margin-bottom: 4px;
 }
-.contact-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 40px; position: relative; }
-.contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; }
-.contact-link {
+.timeline-org {
+  font-size: 0.88rem; color: var(--muted); margin-bottom: 12px;
+}
+.timeline-desc {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+
+/* CTA FOOTER SECTION */
+.cta-section {
+  background: linear-gradient(135deg, rgba(212,204,232,0.15), rgba(200,217,200,0.1));
+  padding: 80px 64px;
+  text-align: center;
+  border-radius: 24px;
+  margin: 60px 64px;
+}
+.cta-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 400; margin-bottom: 16px; color: var(--text);
+}
+.cta-subtitle {
+  font-size: 1rem; color: var(--muted);
+  margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.cta-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.cta-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 22px; border: 1px solid var(--border);
-  border-radius: 100px; text-decoration: none; color: var(--text);
-  font-size: 0.74rem; transition: all 0.2s;
+  padding: 12px 24px; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
+  text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
 }
-.contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-footer {
-  text-align: center; padding: 28px 64px;
-  border-top: 1px solid var(--border);
-  font-size: 0.65rem; color: var(--soft); letter-spacing: 0.08em;
-}
-
-.animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.animate-in.visible { opacity: 1; transform: translateY(0); }
-
-.modal-backdrop {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(42,36,32,0.4); backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center; padding: 24px;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-}
-.modal-backdrop.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--bg); border-radius: 24px; border: 1px solid var(--border);
-  width: 100%; max-width: 740px; max-height: 90vh; overflow-y: auto;
-  transform: scale(0.94) translateY(16px); transition: transform 0.3s ease;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.1); position: relative;
-}
-.modal-backdrop.open .modal { transform: scale(1) translateY(0); }
-.modal-top-bar { height: 4px; border-radius: 24px 24px 0 0; }
-.modal-header {
-  padding: 32px 36px 20px; border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: flex-start;
-}
-.modal-type { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.modal-title { font-family: 'DM Serif Display', serif; font-size: 1.7rem; font-weight: 400; line-height: 1.2; }
-.modal-close {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--surface); border: 1px solid var(--border);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; color: var(--muted); transition: all 0.2s;
-  flex-shrink: 0; margin-left: 16px; margin-top: 4px;
-}
-.modal-close:hover { background: var(--surface2); color: var(--text); }
-.modal-body { padding: 28px 36px 36px; }
-.modal-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.85; margin-bottom: 28px; }
-.modal-metrics { display: flex; gap: 24px; margin-bottom: 28px; }
-.modal-metric {
-  flex: 1; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 16px; text-align: center;
-}
-.modal-metric-val { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--text); }
-.modal-metric-label { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
-.modal-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-
-.demo-section { background: var(--surface); border-radius: 16px; padding: 24px; }
-.demo-label {
-  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.demo-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--sage-d); animation: pulse 2s infinite; }
-.demo-input-wrap { display: flex; gap: 10px; margin-bottom: 16px; }
-.demo-input {
-  flex: 1; background: var(--bg); border: 1px solid var(--border);
-  border-radius: 10px; padding: 11px 16px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--text);
-  outline: none; transition: border-color 0.2s; resize: none;
-}
-.demo-input:focus { border-color: var(--accent-light); }
-.demo-btn {
+.cta-btn.primary {
   background: var(--text); color: var(--bg);
-  border: none; border-radius: 10px; padding: 11px 20px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
-  font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap;
 }
-.demo-btn:hover { background: var(--accent); }
-.demo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.cta-btn.primary:hover { background: var(--accent); transform: translateY(-2px); }
+.cta-btn.secondary {
+  border: 1.5px solid var(--border); color: var(--text); background: transparent;
+}
+.cta-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* FOOTER */
+footer {
+  background: var(--bg); padding: 40px 64px; text-align: center;
+  border-top: 1px solid var(--border);
+}
+footer p { font-size: 0.88rem; color: var(--muted); }
+
+/* MODAL STYLES */
+.modal-backdrop {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center; z-index: 200; padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: var(--bg); border-radius: 20px;
+  max-width: 580px; width: 100%; max-height: 85vh;
+  overflow-y: auto; box-shadow: 0 20px 64px rgba(0,0,0,0.15);
+}
+.modal-top-bar { height: 4px; width: 100%; }
+.bar-sentiment { background: linear-gradient(90deg, #7b6ea8, #5d8a6a); }
+.bar-da { background: linear-gradient(90deg, #5a78a8, #a89050); }
+.bar-ds { background: linear-gradient(90deg, #5d8a6a, #5a78a8); }
+.bar-ml { background: linear-gradient(90deg, #a89050, #b07070); }
+.bar-dl { background: linear-gradient(90deg, #b07070, #7b6ea8); }
+.bar-cv { background: linear-gradient(90deg, #5a78a8, #5d8a6a); }
+.bar-nlp { background: linear-gradient(90deg, #7b6ea8, #a89050); }
+
+.modal-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 28px; border-bottom: 1px solid var(--border);
+}
+.modal-type { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-d); }
+.modal-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem; font-weight: 400; margin-top: 8px; color: var(--text);
+}
+.modal-close {
+  background: none; border: none; font-size: 1.6rem; color: var(--muted);
+  cursor: pointer; transition: color 0.2s; padding: 0;
+}
+.modal-close:hover { color: var(--text); }
+
+.modal-body { padding: 28px; }
+.modal-desc { font-size: 0.95rem; color: var(--text); line-height: 1.7; margin-bottom: 24px; }
+.modal-metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;
+  padding: 16px; background: var(--surface); border-radius: 12px;
+}
+.modal-metric { text-align: center; }
+.modal-metric-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem; color: var(--accent); font-weight: 400;
+}
+.modal-metric-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+.modal-stack {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+}
+
+.demo-section { margin-top: 24px; }
+.demo-label {
+  font-size: 0.85rem; font-weight: 500; color: var(--text);
+  margin-bottom: 12px; letter-spacing: 0.03em;
+}
+.demo-examples {
+  display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.demo-example {
+  display: inline-block; background: var(--surface2);
+  padding: 6px 12px; border-radius: 6px; font-size: 0.72rem;
+  color: var(--text); cursor: pointer; transition: all 0.2s;
+}
+.demo-example:hover { background: var(--accent); color: var(--bg); }
+.demo-input-wrap {
+  display: flex; gap: 8px;
+}
+.demo-input {
+  flex: 1; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; font-family: inherit; font-size: 0.88rem;
+  resize: vertical; background: var(--surface);
+}
+.demo-input:focus { outline: none; border-color: var(--accent); }
+.demo-btn {
+  padding: 10px 16px; background: var(--accent); color: var(--bg);
+  border: none; border-radius: 8px; font-weight: 500; cursor: pointer;
+  transition: all 0.2s; font-size: 0.78rem;
+}
+.demo-btn:hover { background: var(--lavender-d); }
+.demo-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .demo-result {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px;
-  font-size: 0.78rem; color: var(--text); line-height: 1.8;
-  min-height: 60px; display: none;
+  margin-top: 12px; padding: 12px; border-radius: 8px;
+  background: var(--surface); font-size: 0.88rem; line-height: 1.6;
+  color: var(--text); display: none;
 }
 .demo-result.visible { display: block; }
-.demo-result.loading { color: var(--muted); font-style: italic; }
-.demo-examples { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-.demo-example {
-  font-size: 0.65rem; padding: 5px 12px; border-radius: 100px;
-  background: var(--bg); border: 1px solid var(--border);
-  color: var(--muted); cursor: pointer; transition: all 0.2s;
-}
-.demo-example:hover { border-color: var(--accent); color: var(--accent); }
+.demo-result.loading { opacity: 0.6; }
 
-.splash {
-  position: fixed; inset: 0; z-index: 999999;
-  background: #f8f5f2;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 20px;
-  transition: opacity 0.7s ease;
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); text-decoration: none; font-weight: 500;
+  margin-bottom: 24px; cursor: pointer; transition: gap 0.2s;
 }
-.splash-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2rem; color: var(--text); letter-spacing: -0.01em;
+.back-link:hover { gap: 10px; }
+
+.page-container { display: none; }
+.page-container.active { display: block; }
+
+.animate-in {
+  opacity: 0; transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.33, 0.66, 0.66, 1);
 }
-.splash-name span { font-style: italic; color: var(--accent); }
-.splash-text {
-  font-size: 0.78rem; color: var(--muted); font-style: italic;
-  text-align: center; min-height: 22px; max-width: 340px;
-  transition: opacity 0.35s ease;
-}
-.splash-track {
-  width: 260px; background: var(--border);
-  border-radius: 100px; height: 3px; overflow: hidden;
-}
-.splash-bar {
-  height: 3px;
-  background: linear-gradient(90deg, var(--lavender-d), var(--cornflower-d));
-  border-radius: 100px; width: 0%; transition: width 0.07s linear;
-}
-.splash-sub {
-  font-size: 0.6rem; color: var(--soft);
-  letter-spacing: 0.12em; text-transform: uppercase;
+.animate-in.visible {
+  opacity: 1; transform: translateY(0);
 }
 
-@media (max-width: 900px) {
-  nav { padding: 16px 24px; }
-  .hero { padding: 100px 24px 60px; }
-  section { padding: 70px 24px; }
-  .divider { margin: 0 24px; }
-  .contact-wrapper { padding: 40px 24px; }
-  footer { padding: 24px; }
-  .modal-body { padding: 20px 22px 28px; }
-  .modal-header { padding: 24px 22px 16px; }
-  .modal-metrics { flex-wrap: wrap; }
-  .demo-input-wrap { flex-direction: column; }
-  .hero-name { font-size: clamp(3rem, 12vw, 6rem); }
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; flex-direction: column; gap: 12px; }
+  .nav-left { flex-direction: column; width: 100%; gap: 12px; }
+  .nav-links { gap: 12px; width: 100%; }
+  .nav-right { width: 100%; }
+  .nav-availability { width: 100%; justify-content: center; }
+  section { padding: 60px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .modal-metrics { grid-template-columns: 1fr; }
+  .cta-section { margin: 40px 20px; padding: 60px 30px; }
+  footer { padding: 30px 20px; }
 }
 </style>
 </head>
 <body>
 
-<div class="splash" id="splash">
-  <div class="splash-name">Tapaswee <span>Lolla</span></div>
-  <p class="splash-text" id="splash-text">Initialising portfolio...</p>
-  <div class="splash-track"><div class="splash-bar" id="splash-bar"></div></div>
-  <p class="splash-sub">J.B Institute of Engineering &amp; Technology · AIML 2025</p>
-</div>
-
-<script>
-(function(){
-  const lines = [
-    "Initialising portfolio... please pretend it's from IIT...",
-    "Rounding 6.6 CGPA to a solid 9.8...",
-    "Converting J.B Institute to 'Premier Tech University'...",
-    "Hiding Stack Overflow from browser history...",
-    "Making tier 3 look like tier 1 since 2021...",
-    "Training model... accuracy: 12%... rounding up to 94%...",
-    "Encrypting CGPA with military-grade security...",
-    "Loading credentials... skipping grades section...",
-    "2025 grad still figuring out what deployment means...",
-    "Almost done... adjusting expectations accordingly...",
-  ];
-  const splash = document.getElementById('splash');
-  const bar = document.getElementById('splash-bar');
-  const txt = document.getElementById('splash-text');
-  let w = 0, p = 0;
-  txt.textContent = lines[0];
-  const iv = setInterval(() => {
-    w += 0.5;
-    bar.style.width = Math.min(w, 98) + '%';
-    if (w % 18 < 1.4) {
-      p = (p + 1) % lines.length;
-      txt.style.opacity = 0;
-      setTimeout(() => { txt.textContent = lines[p]; txt.style.opacity = 1; }, 320);
-    }
-    if (w >= 100) {
-      clearInterval(iv);
-      bar.style.width = '100%';
-      setTimeout(() => {
-        splash.style.opacity = '0';
-        setTimeout(() => { splash.style.display = 'none'; document.body.style.overflow = ''; }, 700);
-      }, 300);
-    }
-  }, 35);
-  document.body.style.overflow = 'hidden';
-})();
-</script>
-
-<nav>
-  <div class="nav-logo">Tapaswee <span>Lolla</span></div>
-  <ul class="nav-links">
-    <li><a href="#contact" class="nav-availability">Available for projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<div class="hbc1 hero-bg-circle"></div>
-<div class="hbc2 hero-bg-circle"></div>
-<div class="hbc3 hero-bg-circle"></div>
-
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">Available for Opportunities</div>
-    <h1 class="hero-name">
+<!-- SPLASH SCREEN -->
+<div class="splash-screen" id="splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo">
       <span class="first">Tapaswee</span>
       <span class="last">Lolla</span>
-    </h1>
-    <p class="hero-caption">
-      Turning <span class="highlight">raw training data</span> into systems that think,<br>
-      predict, and build a smarter tomorrow.
-    </p>
-    <p class="hero-sub">
-      AI/ML Engineer with a B.Tech in Artificial Intelligence & Machine Learning.
-      Passionate about NLP, computer vision, and turning research into real-world products.
-    </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Projects ↓</a>
-      <a href="#contact" class="btn-outline">Get In Touch ↗</a>
+    </div>
+    <div class="splash-tagline">AI/ML Engineer</div>
+    <div class="splash-loader">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="divider"></div>
-
-<section id="skills">
-  <div class="section-eyebrow">Core Competencies</div>
-  <h2 class="section-title animate-in">What I <em>work with</em></h2>
-  <div class="skills-grid">
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-lavender">🧠</div>
-      <div class="skill-name">Data Analysis</div>
-      <div class="skill-desc">Supervised, unsupervised, and reinforcement learning. Model training, evaluation, and deployment pipelines.</div>
-      <div class="skill-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Tableau</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-butter">📊</div>
-      <div class="skill-name">Data Science</div>
-      <div class="skill-desc">Exploratory analysis, statistical modeling, data visualization, and insight extraction.</div>
-      <div class="skill-tags"><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">SQL</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-lavender">🧠</div>
-      <div class="skill-name">Machine Learning</div>
-      <div class="skill-desc">Supervised, unsupervised, and reinforcement learning. Model training, evaluation, and deployment pipelines.</div>
-      <div class="skill-tags"><span class="tag">Scikit-learn</span><span class="tag">XGBoost</span><span class="tag">MLflow</span><span class="tag">Feature Eng.</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-cornflower">🔬</div>
-      <div class="skill-name">Deep Learning</div>
-      <div class="skill-desc">Neural network architectures — CNNs, RNNs, Transformers. Model optimization and fine-tuning at scale.</div>
-      <div class="skill-tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">ONNX</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-sage">💬</div>
-      <div class="skill-name">Natural Language Processing</div>
-      <div class="skill-desc">Text classification, NER, sentiment analysis, and generative language models.</div>
-      <div class="skill-tags"><span class="tag">HuggingFace</span><span class="tag">BERT</span><span class="tag">LLMs</span><span class="tag">spaCy</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-mint">👁️</div>
-      <div class="skill-name">Computer Vision</div>
-      <div class="skill-desc">Image classification, object detection, segmentation, and real-time video processing.</div>
-      <div class="skill-tags"><span class="tag">OpenCV</span><span class="tag">YOLO</span><span class="tag">ResNet</span><span class="tag">MediaPipe</span></div>
-    </div>
-    <div class="skill-card animate-in">
-      <div class="skill-dot dot-rose">☁️</div>
-      <div class="skill-name">MLOps & Cloud</div>
-      <div class="skill-desc">End-to-end ML pipelines, containerization, CI/CD for models, and cloud deployment.</div>
-      <div class="skill-tags"><span class="tag">Docker</span><span class="tag">AWS SageMaker</span><span class="tag">FastAPI</span><span class="tag">GitHub Actions</span></div>
-    </div>
+<!-- Navigation -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo" onclick="showPage('home')">Tapaswee <span>Lolla</span></div>
   </div>
-</section>
+  <div class="nav-right">
+    <a href="mailto:tapaswee.lolla@example.com" class="nav-availability">Available for Projects</a>
+    <ul class="nav-links">
+      <li><a onclick="scrollToSkills()">Skills</a></li>
+      <li><a onclick="scrollToProjects()">Work</a></li>
+      <li><a onclick="scrollToExp()">Experience</a></li>
+      <li><a onclick="scrollToContact()">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-<div class="divider"></div>
-
-<section id="projects">
-  <div class="section-eyebrow">Selected Work</div>
- <h2 class="section-title animate-in">Projects — <em><a href="Projects.html" target="_blank">Click to explore</a></em></h2>
-  <div class="projects-grid">
-    <div class="project-card animate-in" onclick="openModal('sentiment')">
-      <div class="project-color-bar bar-nlp"></div>
-      <div class="project-inner">
-        <div class="project-type">NLP · Sentiment Analysis</div>
-        <div class="project-title">Sentiment Analysis Engine</div>
-        <div class="project-desc">Fine-tuned BERT transformer on domain-specific data for multi-class sentiment classification. REST API with sub-100ms latency.</div>
-        <div class="project-metrics">
-          <div><div class="metric-val">94.2%</div><div class="metric-label">Accuracy</div></div>
-          <div><div class="metric-val">50K+</div><div class="metric-label">Samples</div></div>
-          <div><div class="metric-val">87ms</div><div class="metric-label">Latency</div></div>
-        </div>
-        <div class="project-stack"><span class="tag">PyTorch</span><span class="tag">HuggingFace</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
-        <div class="project-cta">Try live demo <div class="project-arrow">→</div></div>
+<!-- HOME PAGE -->
+<div id="home-page" class="page-container active">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg-circle hbc1"></div>
+    <div class="hero-bg-circle hbc2"></div>
+    <div class="hero-bg-circle hbc3"></div>
+    <div class="hero-inner">
+      <div class="hero-tag"> Ai/ML Engineer </div>
+      <h1 class="hero-name">
+        <span class="first">Tapaswee</span>
+        <span class="last">Lolla</span>
+      </h1>
+      <p class="hero-caption">Crafting intelligent systems with <span class="highlight">LLMs, Computer Vision & Predictive AI</span></p>
+      <p class="hero-sub">Building production-ready AI/ML solutions from concept to deployment. Specialized in RAG systems, multimodal models, and real-time ML pipelines for enterprise scale.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSkills()">Explore Work →</button>
+        <a href="https://github.com/lolla245" target="_blank" class="btn-outline">GitHub Profile →</a>
       </div>
     </div>
-    <div class="project-card animate-in" onclick="openModal('vision')">
-      <div class="project-color-bar bar-cv"></div>
-      <div class="project-inner">
-        <div class="project-type">Computer Vision · Object Detection</div>
-        <div class="project-title">Real-time Object Detection System</div>
-        <div class="project-desc">YOLOv8-based pipeline for real-time object detection in video streams. Optimized for edge deployment with TensorRT quantization.</div>
-        <div class="project-metrics">
-          <div><div class="metric-val">47 FPS</div><div class="metric-label">Speed</div></div>
-          <div><div class="metric-val">89.1%</div><div class="metric-label">mAP</div></div>
-          <div><div class="metric-val">15</div><div class="metric-label">Classes</div></div>
+  </section>
+
+  <!-- Skills Section with Tools -->
+  <div class="divider"></div>
+  <section id="skills-section">
+    <div class="section-eyebrow">Core Expertise</div>
+    <h2 class="section-title">Technical <em>Skills</em></h2>
+    <div class="skills-grid">
+      <!-- Data Analysis -->
+      <div class="skill-card animate-in" onclick="showProjects('data-analysis')">
+        <div class="skill-dot dot-corn">📊</div>
+        <h3 class="skill-title">Data Analysis</h3>
+        <p class="skill-desc">Advanced analytics, statistical modeling, and business intelligence solutions</p>
+        <div class="skill-tools">
+          <span class="tool-badge">Pandas</span>
+          <span class="tool-badge">SQL</span>
+          <span class="tool-badge">Tableau</span>
+          <span class="tool-badge">Power BI</span>
+          <span class="tool-badge">Plotly</span>
+          <span class="tool-badge">SciPy</span>
         </div>
-        <div class="project-stack"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">TensorRT</span><span class="tag">ONNX</span></div>
-        <div class="project-cta">Try live demo <div class="project-arrow">→</div></div>
+      </div>
+
+      <!-- Data Science -->
+      <div class="skill-card animate-in" onclick="showProjects('data-science')">
+        <div class="skill-dot dot-sage">🧪</div>
+        <h3 class="skill-title">Data Science</h3>
+        <p class="skill-desc">ML pipelines, feature engineering, model optimization, and MLOps</p>
+        <div class="skill-tools">
+          <span class="tool-badge">Scikit-learn</span>
+          <span class="tool-badge">MLflow</span>
+          <span class="tool-badge">Airflow</span>
+          <span class="tool-badge">Spark</span>
+          <span class="tool-badge">Feast</span>
+          <span class="tool-badge">DVC</span>
+        </div>
+      </div>
+
+      <!-- Machine Learning -->
+      <div class="skill-card animate-in" onclick="showProjects('machine-learning')">
+        <div class="skill-dot dot-butter">🤖</div>
+        <h3 class="skill-title">Machine Learning</h3>
+        <p class="skill-desc">Supervised/unsupervised learning, ensemble methods, production systems</p>
+        <div class="skill-tools">
+          <span class="tool-badge">XGBoost</span>
+          <span class="tool-badge">LightGBM</span>
+          <span class="tool-badge">CatBoost</span>
+          <span class="tool-badge">Optuna</span>
+          <span class="tool-badge">Ray</span>
+          <span class="tool-badge">Kubeflow</span>
+        </div>
+      </div>
+
+      <!-- Deep Learning -->
+      <div class="skill-card animate-in" onclick="showProjects('deep-learning')">
+        <div class="skill-dot dot-rose">🧠</div>
+        <h3 class="skill-title">Deep Learning</h3>
+        <p class="skill-desc">Transformers, fine-tuning LLMs, prompt engineering, and multimodal models</p>
+        <div class="skill-tools">
+          <span class="tool-badge">PyTorch</span>
+          <span class="tool-badge">Transformers</span>
+          <span class="tool-badge">LangChain</span>
+          <span class="tool-badge">LlamaIndex</span>
+          <span class="tool-badge">Ollama</span>
+          <span class="tool-badge">NVIDIA TRT</span>
+        </div>
+      </div>
+
+      <!-- Computer Vision -->
+      <div class="skill-card animate-in" onclick="showProjects('computer-vision')">
+        <div class="skill-dot dot-mint">👁️</div>
+        <h3 class="skill-title">Computer Vision</h3>
+        <p class="skill-desc">Detection, segmentation, real-time processing on edge devices</p>
+        <div class="skill-tools">
+          <span class="tool-badge">YOLOv8</span>
+          <span class="tool-badge">OpenCV</span>
+          <span class="tool-badge">MediaPipe</span>
+          <span class="tool-badge">TensorRT</span>
+          <span class="tool-badge">ONNX</span>
+          <span class="tool-badge">Jetson</span>
+        </div>
+      </div>
+
+      <!-- NLP & LLMs -->
+      <div class="skill-card animate-in" onclick="showProjects('nlp')">
+        <div class="skill-dot dot-lavender">📝</div>
+        <h3 class="skill-title">NLP & LLMs</h3>
+        <p class="skill-desc">RAG systems, embeddings, multi-agent workflows, fine-tuned applications</p>
+        <div class="skill-tools">
+          <span class="tool-badge">Hugging Face</span>
+          <span class="tool-badge">FAISS</span>
+          <span class="tool-badge">Pinecone</span>
+          <span class="tool-badge">Chroma</span>
+          <span class="tool-badge">spaCy</span>
+          <span class="tool-badge">Whisper</span>
+        </div>
+      </div>
+
+      <!-- MLOps & Cloud -->
+      <div class="skill-card animate-in" onclick="showProjects('mlops')">
+        <div class="skill-dot dot-cream">☁️</div>
+        <h3 class="skill-title">MLOps & Cloud</h3>
+        <p class="skill-desc">End-to-end ML pipelines, containerization, CI/CD for models, and cloud deployment</p>
+        <div class="skill-tools">
+          <span class="tool-badge">Docker</span>
+          <span class="tool-badge">AWS SageMaker</span>
+          <span class="tool-badge">FastAPI</span>
+          <span class="tool-badge">GitHub Actions</span>
+          <span class="tool-badge">Kubernetes</span>
+          <span class="tool-badge">GCP Vertex</span>
+        </div>
       </div>
     </div>
-    <div class="project-card animate-in" onclick="openModal('forecast')">
-      <div class="project-color-bar bar-ml"></div>
-      <div class="project-inner">
-        <div class="project-type">Machine Learning · Forecasting</div>
-        <div class="project-title">Predictive Analytics Dashboard</div>
-        <div class="project-desc">End-to-end ML pipeline for demand forecasting. Ensemble of XGBoost, LightGBM, and ARIMA with an interactive Streamlit dashboard.</div>
-        <div class="project-metrics">
-          <div><div class="metric-val">91.7%</div><div class="metric-label">Accuracy</div></div>
-          <div><div class="metric-val">3 Models</div><div class="metric-label">Ensemble</div></div>
-          <div><div class="metric-val">30-day</div><div class="metric-label">Forecast</div></div>
+  </section>
+
+  <!-- Projects Section -->
+  <div class="divider"></div>
+  <section class="projects-section" id="projects-section">
+    <div class="section-eyebrow">Portfolio Highlights</div>
+    <h2 class="section-title">Featured <em>Projects</em></h2>
+    <div class="projects-grid">
+      <!-- Sentiment Analysis Project -->
+      <div class="project-card animate-in">
+        <div class="project-top">🎯</div>
+        <div class="project-body">
+          <div class="project-type">NLP · Sentiment Analysis</div>
+          <h3 class="project-title">Sentiment Classifier</h3>
+          <p class="project-desc">Multi-label sentiment analysis with transformer-based models and real-time inference.</p>
+          <div class="project-tags">
+            <span class="tag">Transformers</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">FastAPI</span>
+          </div>
+          <div class="project-footer">
+            <button class="project-link primary" onclick="openModal('sentiment')">Live Demo →</button>
+            <a href="https://github.com/lolla245/sentiment-classifier" target="_blank" class="project-link">GitHub</a>
+            <a href="https://sentiment-demo.tapaswee.dev" target="_blank" class="project-link">Live Link ↗</a>
+          </div>
         </div>
-        <div class="project-stack"><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">Streamlit</span><span class="tag">MLflow</span></div>
-        <div class="project-cta">Try live demo <div class="project-arrow">→</div></div>
+      </div>
+
+      <!-- Object Detection Project -->
+      <div class="project-card animate-in">
+        <div class="project-top">👁️</div>
+        <div class="project-body">
+          <div class="project-type">Computer Vision · Object Detection</div>
+          <h3 class="project-title">Real-time Object Detector</h3>
+          <p class="project-desc">YOLOv8-based detection with TensorRT optimization for edge deployment.</p>
+          <div class="project-tags">
+            <span class="tag">YOLOv8</span>
+            <span class="tag">TensorRT</span>
+            <span class="tag">ONNX</span>
+          </div>
+          <div class="project-footer">
+            <button class="project-link primary" onclick="openModal('vision')">Live Demo →</button>
+            <a href="https://github.com/lolla245/yolov8-detector" target="_blank" class="project-link">GitHub</a>
+            <a href="https://vision-demo.tapaswee.dev" target="_blank" class="project-link">Live Link ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forecasting Project -->
+      <div class="project-card animate-in">
+        <div class="project-top">📈</div>
+        <div class="project-body">
+          <div class="project-type">Machine Learning · Forecasting</div>
+          <h3 class="project-title">Predictive Analytics Dashboard</h3>
+          <p class="project-desc">Ensemble forecasting with XGBoost, LightGBM, ARIMA, and Streamlit.</p>
+          <div class="project-tags">
+            <span class="tag">XGBoost</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">MLflow</span>
+          </div>
+          <div class="project-footer">
+            <button class="project-link primary" onclick="openModal('forecast')">Live Demo →</button>
+            <a href="https://github.com/lolla245/forecast-ensemble" target="_blank" class="project-link">GitHub</a>
+            <a href="https://forecast-demo.tapaswee.dev" target="_blank" class="project-link">Live Link ↗</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <!-- Experience & Education Section -->
+  <div class="divider"></div>
+  <section class="timeline-section" id="experience-section">
+    <div class="section-eyebrow">Background</div>
+    <h2 class="section-title">Education & <em>Experience</em></h2>
+    <div class="timeline-container">
+      <!-- Experience 1 -->
+      <div class="timeline-item animate-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">JUL 2025 – AUG 2025</div>
+        <div class="timeline-title">Data Science Intern</div>
+        <div class="timeline-org">Coreline Solutions · Remote</div>
+        <div class="timeline-desc">Developed and deployed NLP models to analyze user feedback, performing sentiment analysis on textual data using NLP techniques and Hugging Face frameworks. Built automated data pipelines and integrated machine learning models into production APIs.</div>
+      </div>
 
-<section id="experience">
-  <div class="section-eyebrow">Background</div>
-  <h2 class="section-title animate-in">Education & <em>Experience</em></h2>
-  <div class="timeline animate-in">
-    <div class="timeline-item">
-      <div class="timeline-date">JUL 2025 - Aug 2025</div>
-      <div class="timeline-title">Data Science Intern</div>
-      <div class="timeline-org">Coreline Solutions, Remote</div>
-      <div class="timeline-desc">Developed and deployed NLP models to analyze user feedback, performing sentiment analysis on textual data using NLP techniques and Hugging Face frameworks. Built automated data pipelines and integrated machine learning models into production APIs</div>
+      <!-- Education 1 -->
+      <div class="timeline-item animate-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2021 – 2025</div>
+        <div class="timeline-title">B.Tech in Artificial Intelligence & Machine Learning</div>
+        <div class="timeline-org">JB Institute of Engineering & Technology · Hyderabad</div>
+        <div class="timeline-desc">Specialized in deep learning, computer vision, and natural language processing. Final year project: "Eye Disease Prediction using CNN and GAN" - achieving 94.2% accuracy on medical imaging datasets.</div>
+      </div>
+
+      <!-- Experience 2 -->
+      <div class="timeline-item animate-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">NOV 2022 – JAN 2023</div>
+        <div class="timeline-title">Internship Trainee</div>
+        <div class="timeline-org">Y-HILLS · Hyderabad</div>
+        <div class="timeline-desc">Developed a predictive model to estimate New York taxi fares, building a system that forecasts fares based on various influencing factors including time, location, and historical patterns.</div>
+      </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-date">2021 — 2025</div>
-      <div class="timeline-title">B.Tech in Artificial Intelligence & Machine Learning</div>
-      <div class="timeline-org">J.B Institute of Engineering & Technology · Hyderabad</div>
-      <div class="timeline-desc">Specialized in deep learning, computer vision, and natural language processing. Final year project on "Eye Disease Prediction using CNN AND GAN".</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">NOV 2022 - JAN 2022</div>
-      <div class="timeline-title">Internship Trainee</div>
-      <div class="timeline-org">YHILLS</div>
-      <div class="timeline-desc">“Developed a predictive model to estimate New York taxi fares, building a system that forecasts fares based on various influencing factors</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
-
-<section id="contact">
-  <div class="contact-wrapper animate-in">
-    <h2 class="contact-title">Let's build something</h2>
-    <p class="contact-sub">Open to full-time roles, research collaborations, and freelance ML projects.</p>
-    <div class="contact-links">
-      <a href="mailto:lollatapaswee@gmail.com" class="contact-link">✉ lollatapaswee@gmail.com</a>
-      <a href="New.html" class="contact-link" target="_blank">in LinkedIn</a>
-      <a href="https://github.com/lolla245" class="contact-link" target="_blank">⌥ GitHub</a>
-      <a href="Tapaswee1501.docx" class="contact-link" target="_blank">↓ Download CV</a>
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact-section">
+    <h2 class="cta-title">Let's build something</h2>
+    <p class="cta-subtitle">Open to full-time roles, research collaborations, and freelance ML projects.</p>
+    <div class="cta-actions">
+      <a href="mailto:tapasweelolla@gmail.com" class="cta-btn primary">✉️Email</a>
+      <a href="https://linkedin.com/in/tapaswee-lolla" target="_blank" class="cta-btn secondary">in LinkedIn</a>
+      <a href="https://github.com/lolla245" target="_blank" class="cta-btn secondary">⌘ GitHub</a>
+      <a href="Tapaswee1501.docx" class="cta-btn secondary">↓ Download CV</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>Designed & Built by Tapaswee Lolla · AI/ML Graduate · 2025</footer>
+  <!-- Footer -->
+  <div class="divider"></div>
+  <footer>
+    <p>Tapaswee Lolla · AI/ML Graduate </p>
+  </footer>
+</div>
+
+<!-- SKILL-BASED PROJECTS PAGE -->
+<div id="projects-page" class="page-container">
+  <section style="padding-top: 120px;">
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+    <div id="skill-projects-container"></div>
+  </section>
+</div>
+
+<!-- MODALS -->
 
 <!-- MODAL: Sentiment -->
 <div class="modal-backdrop" id="modal-sentiment">
@@ -663,27 +870,27 @@ footer {
     <div class="modal-header">
       <div>
         <div class="modal-type">NLP · Sentiment Analysis</div>
-        <div class="modal-title">Sentiment Analysis Engine</div>
+        <div class="modal-title">Sentiment Classifier</div>
       </div>
       <button class="modal-close" onclick="closeModal('sentiment')">✕</button>
     </div>
     <div class="modal-body">
-      <p class="modal-desc">Fine-tuned a BERT transformer on a domain-specific dataset for multi-class sentiment classification (positive, negative, neutral, mixed). Built a production REST API using FastAPI with Docker containerization achieving sub-100ms inference latency.</p>
+      <p class="modal-desc">Multi-label sentiment analysis powered by fine-tuned RoBERTa transformers. Analyzes tone, emotional intent, and confidence scores in real-time.</p>
       <div class="modal-metrics">
         <div class="modal-metric"><div class="modal-metric-val">94.2%</div><div class="modal-metric-label">Accuracy</div></div>
-        <div class="modal-metric"><div class="modal-metric-val">50K+</div><div class="modal-metric-label">Training Samples</div></div>
-        <div class="modal-metric"><div class="modal-metric-val">87ms</div><div class="modal-metric-label">Avg Latency</div></div>
+        <div class="modal-metric"><div class="modal-metric-val">5 Labels</div><div class="modal-metric-label">Multi-class</div></div>
+        <div class="modal-metric"><div class="modal-metric-val">45ms</div><div class="modal-metric-label">Inference</div></div>
       </div>
-      <div class="modal-stack"><span class="tag">PyTorch</span><span class="tag">HuggingFace</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">BERT</span><span class="tag">Redis</span></div>
+      <div class="modal-stack"><span class="tag">RoBERTa</span><span class="tag">PyTorch</span><span class="tag">FastAPI</span><span class="tag">Redis</span><span class="tag">Docker</span></div>
       <div class="demo-section">
-        <div class="demo-label">Live Demo — Try the model</div>
+        <div class="demo-label">Live Demo — Analyse Sentiment</div>
         <div class="demo-examples">
-          <span class="demo-example" onclick="setInput('sentiment-input','I absolutely love this product, it exceeded all my expectations!')">Positive example</span>
-          <span class="demo-example" onclick="setInput('sentiment-input','The service was terrible and completely ruined my experience.')">Negative example</span>
-          <span class="demo-example" onclick="setInput('sentiment-input','The product is okay, some parts are good but others need improvement.')">Mixed example</span>
+          <span class="demo-example" onclick="setInput('sentiment-input','This product is amazing! Best purchase ever.')">Positive</span>
+          <span class="demo-example" onclick="setInput('sentiment-input','Terrible experience. Very disappointed.')">Negative</span>
+          <span class="demo-example" onclick="setInput('sentiment-input','It is okay, nothing special.')">Neutral</span>
         </div>
         <div class="demo-input-wrap">
-          <textarea id="sentiment-input" class="demo-input" rows="2" placeholder="Enter any text to analyse sentiment…"></textarea>
+          <textarea id="sentiment-input" class="demo-input" rows="2" placeholder="Enter text to analyse sentiment…"></textarea>
           <button class="demo-btn" onclick="runSentiment()">Analyse →</button>
         </div>
         <div id="sentiment-result" class="demo-result"></div>
@@ -699,27 +906,27 @@ footer {
     <div class="modal-header">
       <div>
         <div class="modal-type">Computer Vision · Object Detection</div>
-        <div class="modal-title">Real-time Object Detection System</div>
+        <div class="modal-title">Real-time Object Detection</div>
       </div>
       <button class="modal-close" onclick="closeModal('vision')">✕</button>
     </div>
     <div class="modal-body">
-      <p class="modal-desc">Implemented a YOLOv8-based pipeline for real-time object detection in video streams. Optimized for edge deployment using TensorRT INT8 quantization, enabling 47 FPS inference on embedded NVIDIA devices across 15 object classes.</p>
+      <p class="modal-desc">YOLOv8-based pipeline for real-time object detection in video streams. Optimized with TensorRT INT8 quantization for edge deployment.</p>
       <div class="modal-metrics">
-        <div class="modal-metric"><div class="modal-metric-val">47 FPS</div><div class="modal-metric-label">Inference Speed</div></div>
+        <div class="modal-metric"><div class="modal-metric-val">47 FPS</div><div class="modal-metric-label">Speed</div></div>
         <div class="modal-metric"><div class="modal-metric-val">89.1%</div><div class="modal-metric-label">mAP Score</div></div>
-        <div class="modal-metric"><div class="modal-metric-val">15</div><div class="modal-metric-label">Object Classes</div></div>
+        <div class="modal-metric"><div class="modal-metric-val">15</div><div class="modal-metric-label">Classes</div></div>
       </div>
-      <div class="modal-stack"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">TensorRT</span><span class="tag">ONNX</span><span class="tag">NVIDIA Jetson</span></div>
+      <div class="modal-stack"><span class="tag">YOLOv8</span><span class="tag">OpenCV</span><span class="tag">TensorRT</span><span class="tag">ONNX</span><span class="tag">Jetson</span></div>
       <div class="demo-section">
-        <div class="demo-label">Live Demo — Scene Description</div>
+        <div class="demo-label">Live Demo — Scene Detection</div>
         <div class="demo-examples">
-          <span class="demo-example" onclick="setInput('vision-input','A busy street scene with cars, pedestrians crossing, and a traffic light showing red.')">Street scene</span>
-          <span class="demo-example" onclick="setInput('vision-input','A kitchen with a person cooking, a knife on the counter and vegetables on a cutting board.')">Kitchen scene</span>
-          <span class="demo-example" onclick="setInput('vision-input','A warehouse with boxes stacked on shelves and a forklift moving in the background.')">Warehouse</span>
+          <span class="demo-example" onclick="setInput('vision-input','A busy street with cars and pedestrians')">Street</span>
+          <span class="demo-example" onclick="setInput('vision-input','A kitchen with a person cooking')">Kitchen</span>
+          <span class="demo-example" onclick="setInput('vision-input','A warehouse with boxes and forklift')">Warehouse</span>
         </div>
         <div class="demo-input-wrap">
-          <textarea id="vision-input" class="demo-input" rows="2" placeholder="Describe a scene to detect objects…"></textarea>
+          <textarea id="vision-input" class="demo-input" rows="2" placeholder="Describe a scene…"></textarea>
           <button class="demo-btn" onclick="runVision()">Detect →</button>
         </div>
         <div id="vision-result" class="demo-result"></div>
@@ -735,27 +942,27 @@ footer {
     <div class="modal-header">
       <div>
         <div class="modal-type">Machine Learning · Forecasting</div>
-        <div class="modal-title">Predictive Analytics Dashboard</div>
+        <div class="modal-title">Predictive Analytics</div>
       </div>
       <button class="modal-close" onclick="closeModal('forecast')">✕</button>
     </div>
     <div class="modal-body">
-      <p class="modal-desc">End-to-end demand forecasting pipeline combining XGBoost, LightGBM, and ARIMA in a stacked ensemble. Features automated feature engineering, hyperparameter tuning with Optuna, and an interactive Streamlit dashboard for business stakeholders.</p>
+      <p class="modal-desc">End-to-end demand forecasting combining XGBoost, LightGBM, and ARIMA with automated feature engineering and hyperparameter tuning.</p>
       <div class="modal-metrics">
         <div class="modal-metric"><div class="modal-metric-val">91.7%</div><div class="modal-metric-label">Accuracy</div></div>
         <div class="modal-metric"><div class="modal-metric-val">3 Models</div><div class="modal-metric-label">Ensemble</div></div>
-        <div class="modal-metric"><div class="modal-metric-val">30-day</div><div class="modal-metric-label">Forecast Horizon</div></div>
+        <div class="modal-metric"><div class="modal-metric-val">30-day</div><div class="modal-metric-label">Horizon</div></div>
       </div>
-      <div class="modal-stack"><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">Streamlit</span><span class="tag">MLflow</span><span class="tag">Optuna</span><span class="tag">ARIMA</span></div>
+      <div class="modal-stack"><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">Streamlit</span><span class="tag">MLflow</span><span class="tag">ARIMA</span></div>
       <div class="demo-section">
-        <div class="demo-label">Live Demo — Forecast Insights</div>
+        <div class="demo-label">Live Demo — Forecast</div>
         <div class="demo-examples">
-          <span class="demo-example" onclick="setInput('forecast-input','Sales growing 5% month-over-month for 6 months. What to expect next quarter?')">Sales forecast</span>
-          <span class="demo-example" onclick="setInput('forecast-input','Spike every December and dip in February. How should we plan inventory?')">Inventory planning</span>
-          <span class="demo-example" onclick="setInput('forecast-input','Model shows a 12% decline next month. What features might cause this?')">Feature analysis</span>
+          <span class="demo-example" onclick="setInput('forecast-input','Sales growing 5% monthly for 6 months')">Sales</span>
+          <span class="demo-example" onclick="setInput('forecast-input','Spike in Dec, dip in Feb')">Seasonal</span>
+          <span class="demo-example" onclick="setInput('forecast-input','12% decline expected')">Analysis</span>
         </div>
         <div class="demo-input-wrap">
-          <textarea id="forecast-input" class="demo-input" rows="2" placeholder="Ask about forecasting, trends, or how the model works…"></textarea>
+          <textarea id="forecast-input" class="demo-input" rows="2" placeholder="Ask about forecasting…"></textarea>
           <button class="demo-btn" onclick="runForecast()">Forecast →</button>
         </div>
         <div id="forecast-result" class="demo-result"></div>
@@ -765,6 +972,358 @@ footer {
 </div>
 
 <script>
+// Project Data for Each Skill
+const projectsData = {
+  'data-analysis': {
+    title: 'Data Analysis Projects',
+    description: 'Advanced analytics, visualization, and business intelligence solutions',
+    projects: [
+        {
+          emoji: '📊',
+          type: 'data-analysis',
+          title: 'E-Commerce Sales Analytics',
+          desc: 'Performed end-to-end analysis on e-commerce data including data cleaning, exploratory data analysis, and RFM-based customer segmentation to uncover actionable business insights and improve targeted marketing strategies.',
+          tags: ['Python', 'Pandas', 'SQL', 'Scikit-learn', 'Power BI'],
+          github: 'https://github.com/lolla245/ecommerce-sales-analytics',
+          live: 'https://lolla245.github.io/ecommerce-sales-analytics'
+      },
+      {
+        emoji: '📊',
+        type: 'Data Analytics',
+        title: 'Sales Analytics Dashboard',
+        desc: 'Interactive Tableau/Power BI dashboard analyzing sales trends, customer segments, and revenue forecasts across channels.',
+        tags: ['Tableau', 'SQL', 'Python', 'Pandas'],
+        github: 'https://github.com/lolla245/sales-analytics',
+        live: 'https://tableau-server.example.com/sales'
+      },
+      {
+        emoji: '📈',
+        type: 'Statistical Analysis',
+        title: 'A/B Testing Framework',
+        desc: 'Statistical framework with power analysis, significance testing, and automated recommendations.',
+        tags: ['SciPy', 'Statsmodels', 'Python', 'FastAPI'],
+        github: 'https://github.com/lolla245/ab-testing',
+        live: 'https://ab-test-platform.example.com'
+      },
+      {
+        emoji: '🔍',
+        type: 'Customer Insights',
+        title: 'Customer Segmentation',
+        desc: 'RFM analysis and clustering for behavioral understanding and targeted marketing.',
+        tags: ['Scikit-learn', 'Plotly', 'SQL', 'Pandas'],
+        github: 'https://github.com/lolla245/customer-segmentation',
+        live: 'https://insights.example.com/segments'
+      }
+    ]
+  },
+  'data-science': {
+    title: 'Data Science Projects',
+    description: 'End-to-end ML pipelines with MLOps and production deployments',
+    projects: [
+      {
+        emoji: '🤖',
+        type: 'Feature Engineering',
+        title: 'Automated Feature Pipeline',
+        desc: 'Feature store with 500+ synthetic features, selection, and validation using MLflow and Feast.',
+        tags: ['Feast', 'MLflow', 'Python', 'PostgreSQL'],
+        github: 'https://github.com/lolla245/feature-engineering',
+        live: 'https://feature-store.example.com'
+      },
+      {
+        emoji: '🔄',
+        type: 'Data Pipeline',
+        title: 'ETL with Airflow & Spark',
+        desc: 'Scalable pipeline processing 10GB+ daily with Apache Spark, orchestration, and quality checks.',
+        tags: ['Spark', 'Airflow', 'Kafka', 'Docker'],
+        github: 'https://github.com/lolla245/etl-pipeline',
+        live: 'https://airflow-ui.example.com'
+      },
+      {
+        emoji: '📉',
+        type: 'Predictive Model',
+        title: 'Churn Prediction System',
+        desc: 'Production-ready churn model with XGBoost, SHAP interpretability, real-time scoring API.',
+        tags: ['XGBoost', 'SHAP', 'FastAPI', 'MLflow'],
+        github: 'https://github.com/lolla245/churn-prediction',
+        live: 'https://churn-api.example.com'
+      }
+    ]
+  },
+  'machine-learning': {
+    title: 'Machine Learning Projects',
+    description: 'Supervised, unsupervised, and ensemble learning solutions',
+    projects: [
+      {
+        emoji: '🎯',
+        type: 'Classification',
+        title: 'Email Classifier',
+        desc: 'Multi-class email routing with 95% accuracy across 8 categories using ensemble methods.',
+        tags: ['Scikit-learn', 'LightGBM', 'Pandas', 'Python'],
+        github: 'https://github.com/lolla245/email-classifier',
+        live: 'https://classifier-api.example.com'
+      },
+      {
+        emoji: '⚠️',
+        type: 'Anomaly Detection',
+        title: 'Fraud Detection System',
+        desc: 'Unsupervised anomaly detection using Isolation Forest and Local Outlier Factor.',
+        tags: ['Scikit-learn', 'PyOD', 'NumPy', 'FastAPI'],
+        github: 'https://github.com/lolla245/anomaly-detection',
+        live: 'https://anomaly-api.example.com'
+      },
+      {
+        emoji: '🏆',
+        type: 'Ensemble',
+        title: 'Stacked Regression Model',
+        desc: 'Price prediction using stacked ensemble with RF, SVM, KNN as base models.',
+        tags: ['Scikit-learn', 'XGBoost', 'Python', 'MLflow'],
+        github: 'https://github.com/lolla245/ensemble-regressor',
+        live: 'https://regressor-api.example.com'
+      }
+    ]
+  },
+  'deep-learning': {
+    title: 'Deep Learning Projects',
+    description: 'Neural networks, transformers, and LLM applications',
+    projects: [
+      {
+        emoji: '🧠',
+        type: 'LLM Applications',
+        title: 'RAG Q&A System',
+        desc: 'Retrieval-augmented generation using Llama2, FAISS, and LangChain for domain-specific QA.',
+        tags: ['LangChain', 'FAISS', 'Llama2', 'FastAPI'],
+        github: 'https://github.com/lolla245/rag-qa',
+        live: 'https://qa-system.example.com'
+      },
+      {
+        emoji: '💬',
+        type: 'Fine-tuning',
+        title: 'Custom LLM Fine-tuning',
+        desc: 'Fine-tuned GPT-2 for domain-specific text generation with LoRA optimization.',
+        tags: ['PyTorch', 'Transformers', 'LoRA', 'Hugging Face'],
+        github: 'https://github.com/lolla245/llm-finetuning',
+        live: 'https://textgen-api.example.com'
+      },
+      {
+        emoji: '🔀',
+        type: 'Multi-task Learning',
+        title: 'Multi-task Transformer',
+        desc: 'Single transformer handling NLP, NER, and summarization with shared encoder.',
+        tags: ['PyTorch', 'BERT', 'Hugging Face', 'Transformers'],
+        github: 'https://github.com/lolla245/multitask-transformer',
+        live: 'https://transformer-api.example.com'
+      }
+    ]
+  },
+  'computer-vision': {
+    title: 'Computer Vision Projects',
+    description: 'Object detection, image segmentation, and visual analytics',
+    projects: [
+      {
+        emoji: '🎨',
+        type: 'Segmentation',
+        title: 'Semantic Segmentation',
+        desc: 'U-Net medical imaging segmentation with 92% IoU across 5 classes.',
+        tags: ['PyTorch', 'Torchvision', 'OpenCV', 'ONNX'],
+        github: 'https://github.com/lolla245/seg-unet',
+        live: 'https://medseg-api.example.com'
+      },
+      {
+        emoji: '🚗',
+        type: 'Detection & Tracking',
+        title: 'Vehicle Tracking',
+        desc: 'Real-time YOLOv8 + DeepSort vehicle detection and tracking across video frames.',
+        tags: ['YOLOv8', 'DeepSort', 'OpenCV', 'FastAPI'],
+        github: 'https://github.com/lolla245/vehicle-tracking',
+        live: 'https://tracking-api.example.com'
+      },
+      {
+        emoji: '👤',
+        type: 'Face Recognition',
+        title: 'Face Recognition System',
+        desc: 'FaceNet embeddings for identity verification at 99.3% accuracy with MTCNN detection.',
+        tags: ['FaceNet', 'TensorFlow', 'MTCNN', 'Faiss'],
+        github: 'https://github.com/lolla245/face-recognition',
+        live: 'https://faceapi.example.com'
+      }
+    ]
+  },
+  'nlp': {
+    title: 'NLP & LLM Projects',
+    description: 'Natural language processing and large language model applications',
+    projects: [
+      {
+        emoji: '📝',
+        type: 'Summarization',
+        title: 'Abstractive Summarizer',
+        desc: 'BART-based abstractive summarization for news, documents, and long-form content.',
+        tags: ['Transformers', 'PyTorch', 'BART', 'Hugging Face'],
+        github: 'https://github.com/lolla245/abstractive-summarizer',
+        live: 'https://summary-api.example.com'
+      },
+      {
+        emoji: '🏷️',
+        type: 'NER',
+        title: 'BioBERT NER',
+        desc: 'Named Entity Recognition for medical/scientific text with 94% F1 on custom entities.',
+        tags: ['BioBERT', 'PyTorch', 'spaCy', 'Transformers'],
+        github: 'https://github.com/lolla245/biobert-ner',
+        live: 'https://ner-api.example.com'
+      },
+      {
+        emoji: '🔗',
+        type: 'Knowledge Extraction',
+        title: 'Knowledge Graph Builder',
+        desc: 'Automated entity relationship extraction to build knowledge graphs from text.',
+        tags: ['SpaCy', 'Transformers', 'Neo4j', 'Python'],
+        github: 'https://github.com/lolla245/kg-builder',
+        live: 'https://kg-api.example.com'
+      }
+    ]
+  },
+  'mlops': {
+    title: 'MLOps & Cloud Projects',
+    description: 'End-to-end ML pipelines, containerization, CI/CD, and cloud deployment solutions',
+    projects: [
+      {
+        emoji: '🐳',
+        type: 'Containerization',
+        title: 'Docker ML Pipeline',
+        desc: 'Containerized ML pipeline with multi-stage builds for training, evaluation, and deployment.',
+        tags: ['Docker', 'Docker Compose', 'Python', 'GitHub Actions'],
+        github: 'https://github.com/lolla245/docker-ml-pipeline',
+        live: 'https://docker-pipeline.example.com'
+      },
+      {
+        emoji: '☁️',
+        type: 'Cloud Deployment',
+        title: 'AWS SageMaker Pipeline',
+        desc: 'End-to-end ML workflow on AWS with automated training, tuning, and A/B deployment.',
+        tags: ['AWS SageMaker', 'Lambda', 'S3', 'CloudFormation'],
+        github: 'https://github.com/lolla245/sagemaker-pipeline',
+        live: 'https://sagemaker-demo.example.com'
+      },
+      {
+        emoji: '🔄',
+        type: 'CI/CD',
+        title: 'Model CI/CD Pipeline',
+        desc: 'Automated testing, validation, and deployment with GitHub Actions and fast API endpoints.',
+        tags: ['GitHub Actions', 'FastAPI', 'pytest', 'MLflow'],
+        github: 'https://github.com/lolla245/model-cicd',
+        live: 'https://cicd-models.example.com'
+      }
+    ]
+  }
+};
+
+// Page Navigation
+function showPage(page) {
+  document.querySelectorAll('.page-container').forEach(p => p.classList.remove('active'));
+  document.getElementById(page + '-page').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function scrollToSkills() {
+  document.getElementById('skills-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToProjects() {
+  document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToExp() {
+  document.getElementById('experience-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToContact() {
+  document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showProjects(skill) {
+  const data = projectsData[skill];
+  if (!data) {
+    console.error('Project data not found for skill:', skill);
+    return;
+  }
+  
+  const container = document.getElementById('skill-projects-container');
+  
+  let html = `
+    <div class="section-eyebrow">${skill.replace('-', ' ').toUpperCase()}</div>
+    <h2 class="section-title">${data.title}</h2>
+    <p style="font-size: 1rem; color: var(--muted); margin-bottom: 48px;">${data.description}</p>
+    <div class="projects-grid">
+  `;
+  
+  data.projects.forEach((project, idx) => {
+    html += `
+      <div class="project-card animate-in" style="animation-delay: ${idx * 100}ms;">
+        <div class="project-top">${project.emoji}</div>
+        <div class="project-body">
+          <div class="project-type">${project.type}</div>
+          <h3 class="project-title">${project.title}</h3>
+          <p class="project-desc">${project.desc}</p>
+          <div class="project-tags">
+            ${project.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+          <div class="project-footer">
+            <a href="${project.github}" target="_blank" class="project-link">GitHub</a>
+            <a href="${project.live}" target="_blank" class="project-link">Live Link ↗</a>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `</div>`;
+  container.innerHTML = html;
+  
+  setTimeout(() => {
+    document.querySelectorAll('#skill-projects-container .animate-in').forEach((el, i) => {
+      el.dataset.delay = i * 80;
+      observer.observe(el);
+    });
+  }, 0);
+  
+  showPage('projects');
+}
+
+// Modal Functions
+function openModal(id) {
+  const modal = document.getElementById('modal-' + id);
+  if (modal) {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeModal(id) {
+  const modal = document.getElementById('modal-' + id);
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+// Animation Observer
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if (e.isIntersecting) {
@@ -772,47 +1331,37 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.08 });
+
 document.querySelectorAll('.animate-in').forEach((el, i) => {
   el.dataset.delay = (i % 5) * 80;
   observer.observe(el);
 });
 
-function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(id) {
-  document.getElementById('modal-' + id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-  backdrop.addEventListener('click', (e) => {
-    if (e.target === backdrop) { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
-  });
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-backdrop.open').forEach(m => {
-      m.classList.remove('open'); document.body.style.overflow = '';
-    });
+function setInput(id, text) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.value = text;
   }
-});
-
-function setInput(id, text) { document.getElementById(id).value = text; }
+}
 
 async function callClaude(systemPrompt, userMessage) {
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userMessage }]
-    })
-  });
-  const data = await response.json();
-  return data.content?.[0]?.text || "Sorry, I could not process that.";
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: "user", content: userMessage }]
+      })
+    });
+    const data = await response.json();
+    return data.content?.[0]?.text || "Sorry, I could not process that.";
+  } catch (error) {
+    console.error('API Error:', error);
+    return "Error connecting to Claude API. Please try again.";
+  }
 }
 
 async function runSentiment() {
@@ -823,17 +1372,19 @@ async function runSentiment() {
   btn.disabled = true;
   result.className = 'demo-result visible loading';
   result.textContent = 'Analysing sentiment…';
-  const system = `You are a sentiment analysis model. Given text, return structured analysis in this format:
+  const system = `You are a sentiment analysis model. Return structured analysis:
 Sentiment: [Positive / Negative / Neutral / Mixed]
 Confidence: [0–100%]
-Tone keywords: [comma-separated keywords]
-Brief explanation: [1–2 sentences max]
-Keep it concise.`;
+Tone keywords: [keywords]
+Brief explanation: [1–2 sentences]`;
   try {
     const text = await callClaude(system, input);
     result.className = 'demo-result visible';
     result.innerHTML = text.replace(/\n/g, '<br>');
-  } catch { result.className = 'demo-result visible'; result.textContent = 'Error connecting. Please try again.'; }
+  } catch {
+    result.className = 'demo-result visible';
+    result.textContent = 'Error connecting. Please try again.';
+  }
   btn.disabled = false;
 }
 
@@ -845,18 +1396,29 @@ async function runVision() {
   btn.disabled = true;
   result.className = 'demo-result visible loading';
   result.textContent = 'Detecting objects…';
-  const system = `You are a YOLOv8 object detection model. Given a scene description, simulate detection results listing detected objects, estimated bounding box regions, and confidence scores. Format:
-Detected objects:
-• [Object name] — confidence: [X]% — region: [location]
-Scene summary: [1 sentence]
-Keep it clean and realistic.`;
+  const system = `You are YOLOv8 object detection. List detected objects with confidence and location:
+• [Object] — confidence: [X]% — region: [location]
+Scene summary: [1 sentence]`;
   try {
     const text = await callClaude(system, input);
     result.className = 'demo-result visible';
     result.innerHTML = text.replace(/\n/g, '<br>');
-  } catch { result.className = 'demo-result visible'; result.textContent = 'Error connecting. Please try again.'; }
+  } catch {
+    result.className = 'demo-result visible';
+    result.textContent = 'Error connecting. Please try again.';
+  }
   btn.disabled = false;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Hide splash screen after 2.5 seconds
+  setTimeout(() => {
+    const splash = document.getElementById('splash-screen');
+    if (splash) {
+      splash.classList.add('hide');
+    }
+  }, 2500);
+});
 
 async function runForecast() {
   const input = document.getElementById('forecast-input').value.trim();
@@ -865,13 +1427,16 @@ async function runForecast() {
   const result = document.getElementById('forecast-result');
   btn.disabled = true;
   result.className = 'demo-result visible loading';
-  result.textContent = 'Running forecast model…';
-  const system = `You are a predictive analytics assistant specialising in demand forecasting and time-series analysis. The user interacts with a dashboard powered by an XGBoost + LightGBM + ARIMA ensemble. Provide clear, data-driven insights. Be concise — 3 to 5 sentences max. Use numbers and percentages where relevant.`;
+  result.textContent = 'Running forecast…';
+  const system = `You are a predictive analytics assistant for XGBoost + LightGBM + ARIMA ensemble. Provide clear insights. Be concise — 3-5 sentences max.`;
   try {
     const text = await callClaude(system, input);
     result.className = 'demo-result visible';
     result.innerHTML = text.replace(/\n/g, '<br>');
-  } catch { result.className = 'demo-result visible'; result.textContent = 'Error connecting. Please try again.'; }
+  } catch {
+    result.className = 'demo-result visible';
+    result.textContent = 'Error connecting. Please try again.';
+  }
   btn.disabled = false;
 }
 </script>
